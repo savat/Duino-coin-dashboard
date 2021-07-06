@@ -1,33 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+<title>JavaScript - read JSON from URL</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
+
 <body>
-<script type="text/javascript">
+    <div class="mypanel"></div>
 
-$(function(){
-    setInterval(function(){ 
-        var getData=$.ajax({ 
-      dataType: "json",
- url:"https://server.duinocoin.com/users/savat888",
-                data:"",
-                async:false,
-                success: function(getData) { 
-
-//$("div#Data_name").text(getData.result[balance].username);
-
-document.getElementById("user").value = (getData.result.balance.username);
-document.getElementById("balance").value = (getData.result.balance.balance);
-
-                }
-        }).responseText;
-    },3000);    
-});
-
-</script>
-<input type="text" class="form-control text-center bg-dark text-light" name="user" id="user" value=""  autocomplete="off" placeholder="กำลังโหลด"readonly>
-
- <input type="text" class="form-control text-center bg-dark text-light" name="user" id="balance" value=""  autocomplete="off" placeholder="กำลังโหลด"readonly>
+    <script>
+    $.getJSON('http://time.jsontest.com', function(data) {
+        
+        var text = `Date: ${data.date}<br>
+                    Time: ${data.time}<br>
+                    Unix time: ${data.milliseconds_since_epoch}`
+                    
+        
+        $(".mypanel").html(text);
+    });
+    </script>
+    
 </body>
 </html>
