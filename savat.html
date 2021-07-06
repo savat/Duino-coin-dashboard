@@ -9,11 +9,11 @@
     <div class="mypanel"></div>
 
     <script>
-    $.getJSON('http://time.jsontest.com', function(data) {
+    $.getJSON('https://server.duinocoin.com/users/savat888', function(data) {
         
-        var text = `Date: ${data.date}<br>
-                    Time: ${data.time}<br>
-                    Unix time: ${data.milliseconds_since_epoch}`
+        var text = `Date: ${data.username}<br>
+                    Time: ${data.balance}<br>
+                    Unix time: ${data.datetime}`
                     
         
         $(".mypanel").html(text);
