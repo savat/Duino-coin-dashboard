@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
 <script type="text/javascript">
+</head>
+<body>
 $(function(){
     setInterval(function(){ 
         var getData=$.ajax({ 
@@ -25,4 +28,5 @@ document.getElementById("balance").value = (getData.result.balance.balance);
 <input type="text" class="form-control text-center bg-dark text-light" name="user" id="user" value=""  autocomplete="off" placeholder="กำลังโหลด"readonly>
 
  <input type="text" class="form-control text-center bg-dark text-light" name="user" id="balance" value=""  autocomplete="off" placeholder="กำลังโหลด"readonly>
+</body>
 </html>
