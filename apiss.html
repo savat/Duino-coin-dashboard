@@ -1,0 +1,91 @@
+
+<meta charset="utf-8" >
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+ <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2/dist/sweetalert2.min.css">
+
+<!-- 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script> -->
+
+<link href="https://fonts.googleapis.com/css?family=Mitr" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://www.google.com/recaptcha/api.js?render=6LcjRVIbAAAAAPWnL9dDubZYS4oZl0WvMHGbcd9P"></script>
+
+<style>
+body {
+height: auto;
+max-width: 100%;
+width: 100%;
+
+background-color: #fff;
+font-family: 'Mitr';
+color: #000;
+background-position: center;
+  background-repeat: no-repeat, repeat;
+  background-size: 120;
+  position: relative;
+}
+
+</style>
+<body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    setInterval(function(){ 
+        var getData=$.ajax({ 
+      dataType: "json",
+ url:"https://server.duinocoin.com/users/"+getParameterByName("user"),
+                data:"",
+                async:false,
+                success: function(getData) { 
+
+$("div#Data_name").text(getData.result.balance.username);
+
+
+document.getElementById("balance").value = (getData.result.balance.balance);
+
+                }
+        }).responseText;
+    },10000);    
+});
+
+function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+</script>
+<center>
+
+<div class="container">
+
+<div id="Data_name" class="mt-2">
+<div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
+</div>
+<div class="row">
+  
+
+  <div class="col-12">
+<center>
+<input type="text" class="form-control text-center bg-dark text-light" name="user" id="balance" value=""  autocomplete="off" placeholder="กำลังโหลด..."readonly></div>
+</div>
