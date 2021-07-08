@@ -40,14 +40,13 @@ background-position: center;
 
 </style>
 <body>
-<?php $user = $_GET["user"];?>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
     setInterval(function(){ 
         var getData=$.ajax({ 
       dataType: "json",
- url:"https://server.duinocoin.com/users/<?php echo $user;?>",
+ url:"https://server.duinocoin.com/users/",
                 data:"",
                 async:false,
                 success: function(getData) { 
