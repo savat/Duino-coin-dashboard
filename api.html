@@ -29,7 +29,7 @@ height: auto;
 max-width: 100%;
 width: 100%;
 
-background-color: #fff;
+background-color: #00000000;
 font-family: 'Mitr';
 color: #000;
 background-position: center;
@@ -46,7 +46,7 @@ $(function(){
     setInterval(function(){ 
         var getData=$.ajax({ 
       dataType: "json",
- url:"https://server.duinocoin.com/users/savat888",
+ url:"https://server.duinocoin.com/users/"+getParameterByName("user"),
                 data:"",
                 async:false,
                 success: function(getData) { 
@@ -55,11 +55,25 @@ $("div#Data_name").text(getData.result.balance.username);
 
 
 document.getElementById("balance").value = (getData.result.balance.balance);
+$("div#Data_name").text(getData.result.balance.miners.accepted);
+$("div#Data_name").text(getData.result.balance.miners.algorithm);
+$("div#Data_name").text(getData.result.balance.miners.diff);
+$("div#Data_name").text(getData.result.balance.miners.software);
 
                 }
         }).responseText;
-    },10000);    
+    },2000);    
 });
+
+function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
 
 </script>
 <center>
