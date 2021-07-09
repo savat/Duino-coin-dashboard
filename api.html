@@ -60,7 +60,9 @@ document.getElementById("accepted").value = (getData.result.miners.accepted);
         }).responseText;
     },2000);    
 });
-
+function myFunction(item, index) {
+ $("#tables").append('<tr><td>'+item["accepted"]+'</td><td>'+item["algorithm"]+'</td><td>diff'+item["diff"]+'</td><td>'+item["software"]+'</td></tr>');
+}
 function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
