@@ -55,10 +55,10 @@ $("div#Data_name").text(getData.result.balance.username);
 
 
 document.getElementById("balance").value = (getData.result.balance.balance);
-$("div#Data_name").text(getData.result.balance.miners.accepted);
-$("div#Data_name").text(getData.result.balance.miners.algorithm);
-$("div#Data_name").text(getData.result.balance.miners.diff);
-$("div#Data_name").text(getData.result.balance.miners.software);
+$("div#Data_name").text(getData.result.miners.accepted);
+$("div#Data_name").text(getData.result.miners.algorithm);
+$("div#Data_name").text(getData.result.miners.diff);
+$("div#Data_name").text(getData.result.miners.software);
 
                 }
         }).responseText;
