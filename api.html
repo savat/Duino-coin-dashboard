@@ -70,7 +70,7 @@ document.getElementById("balance").value = (getData.result.balance.balance);
 });
 
 function myFunction(item, index) {
- $("#tables").append('<tr><td>'+item["accepted"]+'</td><td>'+item["algorithm"]+'</td><td>diff'+item["diff"]+'</td><td>'+item["software"]+'</td></tr>');
+ $("#tables").append('<tr><td>'+item["accepted"]+''/''+item["accepted"]+'</td><td>'+item["algorithm"]+'</td><td>diff'+item["diff"]+'</td><td>'+item["software"]+'</td></tr>');
 }
 
 function getParameterByName(name, url) {
