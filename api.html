@@ -52,7 +52,7 @@ $(function(){
     setInterval(function(){ 
         var getData=$.ajax({ 
       dataType: "json",
- url:"https://server.duinocoin.com/balances/"+getParameterByName("user"),
+ url:"https://server.duinocoin.com/users/"+getParameterByName("user"),
                 data:"",
                 async:false,
                 success: function(getData) { 
