@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>JavaScript - read JSON from URL</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <link href="https://vjs.zencdn.net/7.6.5/video-js.css" rel="stylesheet">
+
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 </head>
 
 <body>
-    <div class="mypanel"></div>
+  <video id='my-video' class='video-js' controls preload='auto' width='640' height='264'
+  poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
+    <source src='https://www.googleapis.com/drive/v3/files/1pbRWHMLpL4E07ZHG2vsz9U2Q9b81maCS?alt=media&key=AIzaSyALXm4WzTaGHBbxldnCH-x68kRImlS14cQ' type='video/mp4'> <!-- เปลี่ยนตรงนี้ -->
+    <source src='MY_VIDEO.webm' type='video/webm'>
+    <p class='vjs-no-js'>
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+    </p>
+  </video>
 
-    <script>
-    $.getJSON('https://server.duinocoin.com/users/savat888', function(data) {
-        
-        var text = `Date: ${data.username}<br>
-                    Time: ${data.balance}<br>
-                    Unix time: ${data.datetime}`
-                    
-        
-        $(".mypanel").html(text);
-    });
-    </script>
-    
+  <script src='https://vjs.zencdn.net/7.6.5/video.js'></script>
 </body>
 </html>
