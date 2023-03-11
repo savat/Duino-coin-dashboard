@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Drive Video Player</title>
+	<style>
+		video {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="player"></div>
+
+	<script src="https://apis.google.com/js/api.js"></script>
+	<script>
+		// กำหนดค่า Google API
+		gapi.load('client', initClient);
+
+		function initClient() {
+			gapi.client.init({
+				apiKey: 'AIzaSyALXm4WzTaGHBbxldnCH-x68kRImlS14cQ',
+				discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+				clientId: '546544501200-hna0hb9p9mo0uf93cstbcjffrq95do2l.apps.googleusercontent.com',
+				scope: 'https://www.googleapis.com/auth/drive.readonly'
+			}).then(function() {
+				// ดึงข้อมูลไฟล์วิดีโอ
+				gapi.client.drive.files.get({
+					fileId: '${ids}',
+					fields: 'id,name,webContentLink'
+				}).then(function(response) {
+					// สร้างลิงก์เล่นวิดีโอจาก Google Drive Player
+					var webContentLink = response.result.webContentLink;
+					
+					// แทรก HTML ใน DOM
+					var player = document.getElementById('player');
+					player.innerHTML = '<video controls><source src="' + webContentLink + '" type="video/mp4"></video>';
+				});
+			});
+		}
+	</script>
+</body>
+</html>
