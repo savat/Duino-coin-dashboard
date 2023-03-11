@@ -26,7 +26,7 @@
 			}).then(function() {
 				// ดึงข้อมูลไฟล์วิดีโอ
 				gapi.client.drive.files.get({
-					fileId: '${ids}',
+					fileId: '$ids',
 					fields: 'id,name,webContentLink'
 				}).then(function(response) {
 					// สร้างลิงก์เล่นวิดีโอจาก Google Drive Player
