@@ -10,14 +10,25 @@
 <body>
   <video id='my-video' class='video-js' controls preload='auto' width='640' height='264'
   poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
-    <source src='https://www.googleapis.com/drive/v3/files/1pbRWHMLpL4E07ZHG2vsz9U2Q9b81maCS?alt=media&key=AIzaSyALXm4WzTaGHBbxldnCH-x68kRImlS14cQ' type='video/mp4'> <!-- เปลี่ยนตรงนี้ -->
+    <source src='https://www.googleapis.com/drive/v3/files/+getParameterByName("user")?alt=media&key=AIzaSyALXm4WzTaGHBbxldnCH-x68kRImlS14cQ' type='video/mp4'> <!-- เปลี่ยนตรงนี้ -->
     <source src='MY_VIDEO.webm' type='video/webm'>
     <p class='vjs-no-js'>
       To view this video please enable JavaScript, and consider upgrading to a web browser that
       <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
     </p>
   </video>
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+<script type="text/javascript">
+function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        </script>
   <script src='https://vjs.zencdn.net/7.6.5/video.js'></script>
 </body>
 </html>
