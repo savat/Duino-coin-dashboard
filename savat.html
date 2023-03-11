@@ -10,7 +10,7 @@
 <body>
   <video id='my-video' class='video-js' controls preload='auto' width='640' height='264'
   poster='MY_VIDEO_POSTER.jpg' data-setup='{}'>
-    <source id="video-source" type='video/mp4'>
+    <source src='' type='video/mp4'> <!-- เปลี่ยนตรงนี้ -->
     <source src='MY_VIDEO.webm' type='video/webm'>
     <p class='vjs-no-js'>
       To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -19,14 +19,12 @@
   </video>
 
   <script src='https://vjs.zencdn.net/7.6.5/video.js'></script>
-
   <script>
-    const videoSource = document.getElementById('video-source');
     const urlParams = new URLSearchParams(window.location.search);
     const user = urlParams.get('user');
-    const videoUrl = `https://www.googleapis.com/drive/v3/files/${user}?alt=media&key=AIzaSyALXm4WzTaGHBbxldnCH-x68kRImlS14cQ`;
-
-    videoSource.src = videoUrl;
+    const videoSource = `https://www.googleapis.com/drive/v3/files/${user}?alt=media&key=AIzaSyALXm4WzTaGHBbxldnCH-x68kRImlS14cQ`; // เปลี่ยน YOUR_API_KEY เป็น API key ของคุณ
+    const sourceTag = document.querySelector('video > source');
+    sourceTag.setAttribute('src', videoSource);
   </script>
 </body>
 </html>
