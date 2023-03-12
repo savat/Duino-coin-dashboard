@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Google Drive Video Player</title>
-	<style>
-		video {
-			max-width: 100%;
-			height: auto;
-		}
-	</style>
+  <title>Drive Player Proxy</title>
 </head>
 <body>
-	<div id="player"></div>
+  <h1>Drive Player Proxy</h1>
+  <form>
+    <label for="video-id">Video ID:</label>
+    <input type="text" id="video-id" name="id">
+    <button type="submit">Play</button>
+  </form>
 
-	<script src="https://apis.google.com/js/api.js"></script>
-	<script>
-		// กำหนดค่า Google API
-		gapi.load('client', initClient);
+  <script>
+    function playVideo(event) {
+      event.preventDefault();
 
-		function initClient() {
-			gapi.client.init({
-				apiKey: 'AIzaSyALXm4WzTaGHBbxldnCH-x68kRImlS14cQ',
-				discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-				clientId: '546544501200-hna0hb9p9mo0uf93cstbcjffrq95do2l.apps.googleusercontent.com',
-				scope: 'https://www.googleapis.com/auth/drive.readonly'
-			}).then(function() {
-				// ดึงข้อมูลไฟล์วิดีโอ
-				gapi.client.drive.files.get({
-					fileId: '1pbRWHMLpL4E07ZHG2vsz9U2Q9b81maCS',
-					fields: 'id,name,webContentLink'
-				}).then(function(response) {
-					// สร้างลิงก์เล่นวิดีโอจาก Google Drive Player
-					var webContentLink = response.result.webContentLink;
-					
-					// แทรก HTML ใน DOM
-					var player = document.getElementById('player');
-					player.innerHTML = '<video controls><source src="' + webContentLink + '" type="video/mp4"></video>';
-				});
-			});
-		}
-	</script>
+      const videoId = document.getElementById('video-id').value;
+      const apiUrl = `https://drive.google.com/get_video_info?docid=${videoId}`;
+      
+      fetch(apiUrl)
+        .then(response => response.text())
+        .then(data => {
+          const params = new URLSearchParams(data);
+          const status = params.get('status');
+
+          if (status === 'fail') {
+            throw new Error('Failed to get video information');
+          }
+
+          const streams = params.get('url_encoded_fmt_stream_map').split(',');
+          let streamUrl = '';
+
+          streams.forEach(stream => {
+            const streamParams = new URLSearchParams(stream);
+            const type = streamParams.get('type');
+
+            if (type.includes('video/')) {
+              streamUrl = streamParams.get('url');
+            }
+          });
+
+          if (!streamUrl) {
+            throw new Error('Failed to find video stream URL');
+          }
+
+          streamUrl = decodeURIComponent(streamUrl);
+          streamUrl = streamUrl.replace(/\\u0026/g, '&');
+          streamUrl = streamUrl.replace('drive.google.com', 'redirector.googlevideo.com');
+          streamUrl = `${streamUrl}&title=${encodeURIComponent(params.get('title'))}`;
+
+          window.location.href = streamUrl;
+        })
+        .catch(error => alert(error.message));
+    }
+
+    document.querySelector('form').addEventListener('submit', playVideo);
+  </script>
 </body>
 </html>
