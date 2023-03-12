@@ -1,60 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Drive Player Proxy</title>
-</head>
-<body>
-  <h1>Drive Player Proxy</h1>
-  <form>
-    <label for="video-id">Video ID:</label>
-    <input type="text" id="video-id" name="id">
-    <button type="submit">Play</button>
-  </form>
-
-  <script>
-    function playVideo(event) {
-      event.preventDefault();
-
-      const videoId = document.getElementById('video-id').value;
-      const apiUrl = `https://drive.google.com/get_video_info?docid=${videoId}`;
-      
-      fetch(apiUrl)
-        .then(response => response.text())
-        .then(data => {
-          const params = new URLSearchParams(data);
-          const status = params.get('status');
-
-          if (status === 'fail') {
-            throw new Error('Failed to get video information');
-          }
-
-          const streams = params.get('url_encoded_fmt_stream_map').split(',');
-          let streamUrl = '';
-
-          streams.forEach(stream => {
-            const streamParams = new URLSearchParams(stream);
-            const type = streamParams.get('type');
-
-            if (type.includes('video/')) {
-              streamUrl = streamParams.get('url');
-            }
-          });
-
-          if (!streamUrl) {
-            throw new Error('Failed to find video stream URL');
-          }
-
-          streamUrl = decodeURIComponent(streamUrl);
-          streamUrl = streamUrl.replace(/\\u0026/g, '&');
-          streamUrl = streamUrl.replace('drive.google.com', 'redirector.googlevideo.com');
-          streamUrl = `${streamUrl}&title=${encodeURIComponent(params.get('title'))}`;
-
-          window.location.href = streamUrl;
-        })
-        .catch(error => alert(error.message));
-    }
-
-    document.querySelector('form').addEventListener('submit', playVideo);
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Google Drive Video Player</title>
+  </head>
+  <body>
+    <div>
+      <video width="640" height="360" controls>
+        <source src="https://www.googleapis.com/drive/v3/files/<?php echo $_GET['id']; ?>/?alt=media" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </body>
 </html>
