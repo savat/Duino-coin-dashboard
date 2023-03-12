@@ -1,15 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Google Drive Video Player</title>
-  </head>
-  <body>
-    <div>
-      <video width="640" height="360" controls>
-        <source src="https://www.googleapis.com/drive/v3/files/${id}/?alt=media" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </body>
+<head>
+	<title>Drive Player Proxy Example</title>
+</head>
+<body>
+	<div id="player-container"></div>
+
+	<script>
+		// URL ของ Google Drive player
+		var googleDrivePlayerUrl = "https://drive.google.com/file/d/pbRWHMLpL4E07ZHG2vsz9U2Q9b81maCS/preview";
+
+		// URL ของไฟล์ Google Drive ที่ต้องการเล่น
+		var fileUrl = "https://drive.google.com/uc?id=pbRWHMLpL4E07ZHG2vsz9U2Q9b81maCS&export=download";
+
+		// สร้าง DOM element สำหรับใช้เป็น player
+		var player = document.createElement('video');
+		player.setAttribute('controls', true);
+		player.style.width = "100%";
+
+		// ใส่ DOM element ของ player เข้าไปใน container
+		document.getElementById("player-container").appendChild(player);
+
+		// สร้าง cUrl session
+		var xhr = new XMLHttpRequest();
+
+		// กำหนด URL ของ Google Drive player
+		xhr.open('GET', googleDrivePlayerUrl, true);
+
+		// ส่ง request ไปยัง Google Drive player
+		xhr.send();
+
+		// เมื่อได้รับ response จาก Google Drive player
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				// กำหนด source ของ player เป็น response ที่ได้รับมาจาก Google Drive player
+				player.src = URL.createObjectURL(new Blob([xhr.responseText], {type: 'video/mp4'}));
+
+				// กำหนดความละเอียดของ video
+				player.addEventListener('loadedmetadata', function() {
+					this.currentTime = 0;
+					this.play();
+				});
+			}
+		};
+	</script>
+</body>
 </html>
